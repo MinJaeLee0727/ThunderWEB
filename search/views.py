@@ -27,7 +27,6 @@ def results(request):
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
                       {}, {}, {}, {}, {}, {}]
 
-        sample = [1,2,3,4,5,6,7,8,9,10]
 
         game_list = {}
         game_list2 = []
@@ -109,6 +108,8 @@ def results(request):
                     #     match_id.append(store_match_list[i]['gameId'])
 
                     for i in range(match_number):
+                        sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
                         match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
                             store_match_list[i]['gameId'])
                         match_info = requests.get(match_url, params=params)
@@ -119,7 +120,6 @@ def results(request):
                                 global participantId
                                 participantId = k
                                 sample.remove(k)
-                                print(sample)
 
                         for item in sample:
                             print(item)
