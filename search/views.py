@@ -57,6 +57,7 @@ def results(request):
                 if len(tier_info) == 1:  # 자유랭크 또는 솔로랭크 둘중 하나만 있는경우
                     tier_info = tier_info.pop()
                     if tier_info['queueType'] == 'RANKED_FLEX_SR':  # 자유랭크인 경우
+                        team_tier['rankWithTier'] = tier_info['tier'] + " " + tier_info['rank']
                         team_tier['rank_type'] = '자유랭크 5:5'
                         team_tier['tier'] = tier_info['tier']
                         team_tier['rank'] = tier_info['rank']
@@ -64,9 +65,8 @@ def results(request):
                         team_tier['wins'] = tier_info['wins']
                         team_tier['losses'] = tier_info['losses']
                     else:  # 솔로랭크인 경우
-                        tierAll = tier_info['tier'] + " " + tier_info['rank']
                         solo_tier['rank_type'] = '솔로랭크 5:5'
-                        solo_tier['rankWithTier'] = tierAll
+                        solo_tier['rankWithTier'] = tier_info['tier'] + " " + tier_info['rank']
                         solo_tier['tier'] = tier_info['tier']
                         solo_tier['rank'] = tier_info['rank']
                         solo_tier['points'] = tier_info['leaguePoints']
@@ -76,18 +76,20 @@ def results(request):
                     for item in tier_info:
                         store_summoner_list.append(item)
                     solo_tier['rank_type'] = '솔로랭크 5:5'
-                    solo_tier['tier'] = store_summoner_list[0]['tier']
-                    solo_tier['rank'] = store_summoner_list[0]['rank']
-                    solo_tier['points'] = store_summoner_list[0]['leaguePoints']
-                    solo_tier['wins'] = store_summoner_list[0]['wins']
-                    solo_tier['losses'] = store_summoner_list[0]['losses']
+                    solo_tier['tier'] = store_summoner_list[1]['tier']
+                    solo_tier['rank'] = store_summoner_list[1]['rank']
+                    solo_tier['rankWithTier'] = store_summoner_list[1]['tier'] + " " + store_summoner_list[1]['rank']
+                    solo_tier['points'] = store_summoner_list[1]['leaguePoints']
+                    solo_tier['wins'] = store_summoner_list[1]['wins']
+                    solo_tier['losses'] = store_summoner_list[1]['losses']
 
                     team_tier['rank_type'] = '자유랭크 5:5'
-                    team_tier['tier'] = store_summoner_list[1]['tier']
-                    team_tier['rank'] = store_summoner_list[1]['rank']
-                    team_tier['points'] = store_summoner_list[1]['leaguePoints']
-                    team_tier['wins'] = store_summoner_list[1]['wins']
-                    team_tier['losses'] = store_summoner_list[1]['losses']
+                    team_tier['tier'] = store_summoner_list[0]['tier']
+                    team_tier['rank'] = store_summoner_list[0]['rank']
+                    team_tier['rankWithTier'] = store_summoner_list[0]['tier'] + " " + store_summoner_list[0]['rank']
+                    team_tier['points'] = store_summoner_list[0]['leaguePoints']
+                    team_tier['wins'] = store_summoner_list[0]['wins']
+                    team_tier['losses'] = store_summoner_list[0]['losses']
 
                 # 소환사 매치 정보
                 matches_url = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + summoners_result[
