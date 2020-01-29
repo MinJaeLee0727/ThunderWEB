@@ -109,6 +109,7 @@ def results(request):
 
                     for i in range(match_number):
                         sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        rich = True
 
                         match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
                             store_match_list[i]['gameId'])
@@ -122,9 +123,11 @@ def results(request):
                                 sample.remove(k)
 
                         for item in sample:
-                            print(item)
-                            if match_info['participants'][participantId]['stats']['goldEarned'] > match_info['participants'][item-1]['stats']['goldEarned']:
-                                match_data[i]['rich'] = 'rich'
+                            if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item-1]['stats']['goldEarned']:
+                                rich = False
+
+                        if rich:
+                            match_data[i]['rich'] = 'rich'
 
                         if participantId < 5:
                             # match_data[i]['team'] = 100
