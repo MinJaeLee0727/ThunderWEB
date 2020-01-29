@@ -24,7 +24,11 @@ def results(request):
         store_summoner_list = []
         store_match_list = []
         match_id = []
-        match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+        match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                      {}, {}, {}, {}, {}, {}]
+
+        sample = [1,2,3,4,5,6,7,8,9,10]
+
         game_list = {}
         game_list2 = []
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
@@ -105,25 +109,36 @@ def results(request):
                     #     match_id.append(store_match_list[i]['gameId'])
 
                     for i in range(match_number):
-                        match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(store_match_list[i]['gameId'])
+                        match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
+                            store_match_list[i]['gameId'])
                         match_info = requests.get(match_url, params=params)
                         match_info = match_info.json()
 
-                        for k in range(10):
+                        for k in range(10):  # k = participantId
                             if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
-                                # match_data[i]['participantId'] = match_info['participantIdentities'][k]['participantId']
-                                if k < 5:
-                                    # match_data[i]['team'] = 100
-                                    if match_info['teams'][0]['win'] == "Win":
-                                        match_data[i]['wl'] = 'win'
-                                    else:
-                                        match_data[i]['wl'] = 'lose'
-                                else:
-                                    # match_data[i]['team'] = 200
-                                    if match_info['teams'][0]['win'] == "Win":
-                                        match_data[i]['wl'] = 'lose'
-                                    else:
-                                        match_data[i]['wl'] = 'win'
+                                global participantId
+                                participantId = k
+                                sample.remove(k)
+
+                        for item in sample:
+                            if match_info['participants'][participantId]['stats']['goldEarned'] > match_info['participants'][item]['stats']['goldEarned']:
+                                match_data[i]['rich'] = 'rich'
+
+                        if participantId < 5:
+                            # match_data[i]['team'] = 100
+                            if match_info['teams'][0]['win'] == "Win":
+                                match_data[i]['wl'] = 'win'
+                            else:
+                                match_data[i]['wl'] = 'lose'
+                        else:
+                            # match_data[i]['team'] = 200
+                            if match_info['teams'][0]['win'] == "Win":
+                                match_data[i]['wl'] = 'lose'
+                            else:
+                                match_data[i]['wl'] = 'win'
+
+
+
                         #
                         # if match_data[i]['team'] == 100:
                         #     if match_info['teams'][0]['win'] == "Win":
