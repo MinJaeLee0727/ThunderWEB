@@ -108,7 +108,7 @@ def results(request):
                     #     match_id.append(store_match_list[i]['gameId'])
 
                     for i in range(match_number):
-                        sample = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         rich = True
 
                         match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
@@ -120,10 +120,10 @@ def results(request):
                             if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
                                 global participantId
                                 participantId = k
-                                sample.remove(k)
+                                others.remove(k)
 
-                        for item in sample:
-                            if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item-1]['stats']['goldEarned']:
+                        for item in others:
+                            if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item]['stats']['goldEarned']:
                                 rich = False
 
                         if rich:
