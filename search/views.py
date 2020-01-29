@@ -123,7 +123,7 @@ def results(request):
 
                         for item in sample:
                             print(item)
-                            if match_info['participants'][participantId]['stats']['goldEarned'] > match_info['participants'][item]['stats']['goldEarned']:
+                            if match_info['participants'][participantId]['stats']['goldEarned'] > match_info['participants'][item-1]['stats']['goldEarned']:
                                 match_data[i]['rich'] = 'rich'
 
                         if participantId < 5:
