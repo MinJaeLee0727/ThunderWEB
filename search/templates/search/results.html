@@ -47,23 +47,26 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Summoner Name" name="summonerName" value="{{summonerName}}">
                     <span class="input-group-btn">
-                          <button class="btn btn-secondary" type="submit">.gg</button>
-                    </span>
+                                                 <button class="btn btn-secondary" type="submit">.gg</button>
+                                           </span>
                 </div>
             </form>
         </div>
     </div>
-    {% if summoner_exist %}
-    <div class="row" style="margin: 40px; float: none;">
+
+    {% if summoner_exist %}인
+
+    <div class="row" style="margin: 40px; float: none;"> #레벨, 이
 
         <img style="display: block; margin: 0px" class="img-thumbnail" src="{% static 'images/profileicon/' %}{{summoners_result.profileIconId}}.png">
         <span style="margin: 20 0 0 20; font-size: 32px;">{{ summoners_result.name }}<br>
-                <span style="font-size: 20px; ">LV: {{ summoners_result.level }}</span>
-              </span>
+                                       <span style="font-size: 20px; ">LV: {{ summoners_result.level }}</span>
+                               </span>
 
 
     </div>
-    <div class="row">
+
+    <div class="row"> #티어
         <div style="float: none; margin: 0 auto" class="col-5 border border-secondary">
             <div class="row">
                 {% if solo_tier %}
@@ -106,6 +109,13 @@
         </div>
     </div>
 
+    <div class="row"> #챔피언 / 라
+        <div style="float: none; margin: 0 auto" class="col-10 border border-secondary">
+
+
+        </div>
+    </div>
+
     <table class="table" style="margin-top: 5%">
         <thead>
         <tr>
@@ -127,6 +137,7 @@
         {% endfor %}
         <tbody>
     </table>
+
     {% else %}
     사용자가 존재하지않습니다.
     {% endif %}
@@ -136,5 +147,3 @@
 
 </body>
 </html>
-
-

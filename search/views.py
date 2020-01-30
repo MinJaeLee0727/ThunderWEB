@@ -7,7 +7,12 @@ from django.shortcuts import render
 
 # Create your views here.
 
+# for inter-functions
+def switch_queue(x):
+    return {'900': 'uruf', '420': 'solo_rank'}.get(x, "None")
 
+
+# for web
 def index(request):
     return render(request, 'search/index.html', {})
 
@@ -16,6 +21,8 @@ def results(request):
     if request.method == "GET":
         summoner_name = request.GET.get('summonerName')
 
+
+        #Variables
         # {}: dic []: List
         summoner_exist = False
         sum_result = {}
@@ -23,13 +30,11 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         store_match_list = []
-        match_id = []
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-                      {}, {}, {}, {}, {}, {}]
+                      {}, {}, {}, {}, {}, {}] #30
 
 
-        game_list = {}
-        game_list2 = []
+
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
         summoner_url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + str(
@@ -99,9 +104,10 @@ def results(request):
 
                 if matches_info:
                     for item in matches_info['matches']:
-                        store_match_list.append(item)
+                        store_match_list[switch_queue(matches_info["matches"]["queue"])].append(item)
 
                     match_number = len(store_match_list)
+                    print(store_match_list)
 
                     if match_number > 30:
                         match_number = 30
