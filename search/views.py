@@ -30,7 +30,7 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         store_match_list = []
-        match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        solo_match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
                       {}, {}, {}, {}, {}, {}] #30
 
 
@@ -102,67 +102,64 @@ def results(request):
                 matches_info = matches_info.json()
 
                 if matches_info:
-                    # for item in matches_info['matches']:
-                        # store_match_list[switch_queue(matches_info["matches"]["queue"])].append(item)
 
                     match_number = len(matches_info)
-                    print(match_number)
-
                     if match_number > 30:
                         match_number = 30
 
-                    # for i in range(match_number):
-                    #     match_id.append(store_match_list[i]['gameId'])
-
                     for i in range(match_number):
-                        others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        rich = True
 
-                        match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
-                            store_match_list[i]['gameId'])
-                        match_info = requests.get(match_url, params=params)
-                        match_info = match_info.json()
+                        if matches_info[i]["queue"] == 420: #solo_rank_match
+                            others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                            rich = True
 
-                        for k in range(10):  # k = participantId
-                            if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
-                                global participantId
-                                participantId = k
-                                others.remove(k)
+                            solo_match_data[i]["champion"] = matches_info[i]["champion"]
 
-                        for item in others:
-                            if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item]['stats']['goldEarned']:
-                                rich = False
+                            match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
+                                store_match_list[i]['gameId'])
+                            match_info = requests.get(match_url, params=params)
+                            match_info = match_info.json()
 
-                        if rich:
-                            match_data[i]['rich'] = 'rich'
+                            for k in range(10):  # k = participantId
+                                if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
+                                    global participantId
+                                    participantId = k
+                                    others.remove(k)
 
-                        if participantId < 5:
-                            # match_data[i]['team'] = 100
-                            if match_info['teams'][0]['win'] == "Win":
-                                match_data[i]['wl'] = 'win'
+                            for item in others:
+                                if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item]['stats']['goldEarned']:
+                                    rich = False
+
+                            if rich:
+                                solo_match_data[i]['rich'] = 'rich'
+
+                            if participantId < 5:
+                                # match_data[i]['team'] = 100
+                                if match_info['teams'][0]['win'] == "Win":
+                                    solo_match_data[i]['wl'] = 'win'
+                                else:
+                                    solo_match_data[i]['wl'] = 'lose'
                             else:
-                                match_data[i]['wl'] = 'lose'
-                        else:
-                            # match_data[i]['team'] = 200
-                            if match_info['teams'][0]['win'] == "Win":
-                                match_data[i]['wl'] = 'lose'
-                            else:
-                                match_data[i]['wl'] = 'win'
+                                # match_data[i]['team'] = 200
+                                if match_info['teams'][0]['win'] == "Win":
+                                    solo_match_data[i]['wl'] = 'lose'
+                                else:
+                                    solo_match_data[i]['wl'] = 'win'
 
 
 
-                        #
-                        # if match_data[i]['team'] == 100:
-                        #     if match_info['teams'][0]['win'] == "Win":
-                        #         match_data[i]['win'] = 'win'
-                        #     else:
-                        #         match_data[i]['win'] = 'lose'
-                        # else:
-                        #     if match_info['teams'][0]['win'] == "Win":
-                        #         match_data[i]['win'] = 'lose'
-                        #     else:
-                        #         match_data[i]['win'] = 'win'
+                            #
+                            # if match_data[i]['team'] == 100:
+                            #     if match_info['teams'][0]['win'] == "Win":
+                            #         match_data[i]['win'] = 'win'
+                            #     else:
+                            #         match_data[i]['win'] = 'lose'
+                            # else:
+                            #     if match_info['teams'][0]['win'] == "Win":
+                            #         match_data[i]['win'] = 'lose'
+                            #     else:
+                            #         match_data[i]['win'] = 'win'
 
         return render(request, 'search/results.html',
                       {'summoner_exist': summoner_exist, 'summoners_result': sum_result, 'solo_tier': solo_tier,
-                       'team_tier': team_tier, 'match_data': match_data})
+                       'team_tier': team_tier, 'match_data': solo_match_data})
