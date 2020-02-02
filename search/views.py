@@ -29,7 +29,6 @@ def results(request):
         solo_tier = {}
         team_tier = {}
         store_summoner_list = []
-        store_match_list = []
         solo_match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
                       {}, {}, {}, {}, {}, {}] #30
 
@@ -114,9 +113,10 @@ def results(request):
                             rich = True
 
                             solo_match_data[i]["champion"] = matches_info["matches"][i]["champion"]
+                            solo_match_data[i]['gameId'] = matches_info["matches"][i]['gameId']
 
                             match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
-                                store_match_list[i]['gameId'])
+                                solo_match_data[i]['gameId'])
                             match_info = requests.get(match_url, params=params)
                             match_info = match_info.json()
 
