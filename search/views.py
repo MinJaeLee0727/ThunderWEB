@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 # for inter-functions
 def switch_queue(x):
-    return {'900': 'uruf', '420': 'solo_rank'}.get(x, "None")
+    return {'900': "uruf", '420': "solo_rank"}.get(x, "None")
 
 
 # for web
@@ -102,10 +102,10 @@ def results(request):
                 matches_info = matches_info.json()
 
                 if matches_info:
-                    for item in matches_info['matches']:
-                        store_match_list[switch_queue(matches_info["matches"]["queue"])].append(item)
+                    # for item in matches_info['matches']:
+                        # store_match_list[switch_queue(matches_info["matches"]["queue"])].append(item)
 
-                    match_number = len(store_match_list)
+                    match_number = len(matches_info)
                     print(match_number)
 
                     if match_number > 30:
