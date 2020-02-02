@@ -109,11 +109,11 @@ def results(request):
 
                     for i in range(match_number):
 
-                        if matches_info[i]["queue"] == 420: #solo_rank_match
+                        if matches_info["matches"][i]["queue"] == 420: #solo_rank_match
                             others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                             rich = True
 
-                            solo_match_data[i]["champion"] = matches_info[i]["champion"]
+                            solo_match_data[i]["champion"] = matches_info["matches"][i]["champion"]
 
                             match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
                                 store_match_list[i]['gameId'])
