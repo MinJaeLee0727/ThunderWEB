@@ -1,3 +1,5 @@
+queue: 900: 우르프 / 420: 솔랭
+
 {
     "matches": [
         {
@@ -25,7 +27,7 @@
             "gameId": 3279303661,
             "champion": 64,
             "platformId": "NA1",
-            "timestamp": 1580247844862,
+            "timestamp": 1580247844862
             "queue": 900,
             "role": "DUO_SUPPORT",
             "season": 13

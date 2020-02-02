@@ -34,7 +34,6 @@ def results(request):
                       {}, {}, {}, {}, {}, {}] #30
 
 
-
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
         summoner_url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + str(
@@ -107,7 +106,7 @@ def results(request):
                         store_match_list[switch_queue(matches_info["matches"]["queue"])].append(item)
 
                     match_number = len(store_match_list)
-                    print(store_match_list)
+                    print(match_number)
 
                     if match_number > 30:
                         match_number = 30
