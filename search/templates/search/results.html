@@ -78,6 +78,7 @@
                     티어: {{ solo_tier.tier }} {{ solo_tier.rank }}<br>
                     포인트: {{ solo_tier.points }}<br>
                     전적: {{ solo_tier.wins|add:solo_tier.losses}}전 {{ solo_tier.wins }}승 {{ solo_tier.losses }}패
+                    승률: {{ solo_tier.winRate }}
                 </div>
             </div>
             {% else %}
@@ -99,7 +100,7 @@
                     티어: {{ team_tier.tier }} {{ team_tier.rank }}<br>
                     포인트: {{ team_tier.points }}<br>
                     전적: {{ team_tier.wins|add:team_tier.losses}}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패<br>
-                    승률:
+                    승률: {{ team_tier.winRate }}
                 </div>
                 {% else %}
                 <div style="display: inline-block; text-align: center">

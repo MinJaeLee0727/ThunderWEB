@@ -82,24 +82,24 @@ def results(request):
                     for item in tier_info:
                         store_summoner_list.append(item)
                     solo_tier['rank_type'] = '솔로랭크 5:5'
-                    solo_tier['tier'] = store_summoner_list[1]['tier']
-                    solo_tier['rank'] = store_summoner_list[1]['rank']
-                    solo_tier['rankWithTier'] = store_summoner_list[1]['tier'] + " " + store_summoner_list[1]['rank']
-                    solo_tier['points'] = store_summoner_list[1]['leaguePoints']
-                    solo_tier['wins'] = store_summoner_list[1]['wins']
-                    solo_tier['losses'] = store_summoner_list[1]['losses']
+                    solo_tier['tier'] = store_summoner_list[0]['tier']
+                    solo_tier['rank'] = store_summoner_list[0]['rank']
+                    solo_tier['rankWithTier'] = store_summoner_list[0]['tier'] + " " + store_summoner_list[1]['rank']
+                    solo_tier['points'] = store_summoner_list[0]['leaguePoints']
+                    solo_tier['wins'] = store_summoner_list[0]['wins']
+                    solo_tier['losses'] = store_summoner_list[0]['losses']
                     solo_tier['winRate'] = "%.2f%%" % (
-                                (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
+                                (store_summoner_list[0]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[0]['losses'])) * 100)
 
                     team_tier['rank_type'] = '자유랭크 5:5'
-                    team_tier['tier'] = store_summoner_list[0]['tier']
-                    team_tier['rank'] = store_summoner_list[0]['rank']
-                    team_tier['rankWithTier'] = store_summoner_list[0]['tier'] + " " + store_summoner_list[0]['rank']
-                    team_tier['points'] = store_summoner_list[0]['leaguePoints']
-                    team_tier['wins'] = store_summoner_list[0]['wins']
-                    team_tier['losses'] = store_summoner_list[0]['losses']
+                    team_tier['tier'] = store_summoner_list[1]['tier']
+                    team_tier['rank'] = store_summoner_list[1]['rank']
+                    team_tier['rankWithTier'] = store_summoner_list[1]['tier'] + " " + store_summoner_list[0]['rank']
+                    team_tier['points'] = store_summoner_list[1]['leaguePoints']
+                    team_tier['wins'] = store_summoner_list[1]['wins']
+                    team_tier['losses'] = store_summoner_list[1]['losses']
                     team_tier['winRate'] = "%.2f%%" % (
-                                (store_summoner_list[0]['wins'] / (store_summoner_list[0]['wins'] + store_summoner_list[0]['losses'])) * 100)
+                                (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
 
                 # 소환사 매치 정보
                 matches_url = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + summoners_result[
