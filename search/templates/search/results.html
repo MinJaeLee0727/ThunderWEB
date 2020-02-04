@@ -98,7 +98,8 @@
                     리그: {{ team_tier.rank_type }}<br>
                     티어: {{ team_tier.tier }} {{ team_tier.rank }}<br>
                     포인트: {{ team_tier.points }}<br>
-                    전적: {{ team_tier.wins|add:team_tier.losses}}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패
+                    전적: {{ team_tier.wins|add:team_tier.losses}}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패<br>
+                    승률:
                 </div>
                 {% else %}
                 <div style="display: inline-block; text-align: center">
