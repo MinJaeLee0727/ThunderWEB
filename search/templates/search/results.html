@@ -58,7 +58,7 @@
 
     <div class="row" style="margin: 40px; float: none;">
 
-        <img style="display: block; margin: 0px" class="img-thumbnail" src="{% static '/dragontail-10.2.1/10.2.1/img/profileicon' %}{{summoners_result.profileIconId}}.png">
+        <img style="display: block; margin: 0px" class="img-thumbnail" src="{% static '/dragontail-10.2.1/10.2.1/img/profileicon/' %}{{summoners_result.profileIconId}}.png">
         <span style="margin: 20 0 0 20; font-size: 32px;">{{ summoners_result.name }}<br>
                                        <span style="font-size: 20px; ">LV: {{ summoners_result.level }}</span>
                                </span>
@@ -92,7 +92,7 @@
 
                 {% if team_tier %}
                 <div class="col-4">
-                    <img src="{% static 'images/emblems/' %}{{team_tier.rankWithTier}}.png"  width="100%">
+                    <img src="{% static '/images/emblems/' %}{{team_tier.rankWithTier}}.png"  width="100%">
                 </div>
                 <div>
                     리그: {{ team_tier.rank_type }}<br>
@@ -101,7 +101,7 @@
                     전적: {{ team_tier.wins|add:team_tier.losses}}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패
                 </div>
                 {% else %}
-                <div>
+                <div style="display: inline-block; text-align: center">
                     팀 배치&전적정보없음
                 </div>
                 {% endif %}
