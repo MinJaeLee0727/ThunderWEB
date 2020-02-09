@@ -30,7 +30,7 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         solo_match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-                      {}, {}, {}, {}, {}, {}] #30
+                           {}, {}, {}, {}, {}, {}] #30
 
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
@@ -89,7 +89,7 @@ def results(request):
                     solo_tier['wins'] = store_summoner_list[0]['wins']
                     solo_tier['losses'] = store_summoner_list[0]['losses']
                     solo_tier['winRate'] = "%.2f%%" % (
-                                (store_summoner_list[0]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[0]['losses'])) * 100)
+                            (store_summoner_list[0]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[0]['losses'])) * 100)
 
                     team_tier['rank_type'] = '자유랭크 5:5'
                     team_tier['tier'] = store_summoner_list[1]['tier']
@@ -99,7 +99,7 @@ def results(request):
                     team_tier['wins'] = store_summoner_list[1]['wins']
                     team_tier['losses'] = store_summoner_list[1]['losses']
                     team_tier['winRate'] = "%.2f%%" % (
-                                (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
+                            (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
 
                 # 소환사 매치 정보
                 matches_url = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + summoners_result[
@@ -110,58 +110,56 @@ def results(request):
                 if matches_info:
 
                     for i in range(len(matches_info)):
+                        others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        rich = True
 
-                        if matches_info["matches"][i]["queue"] == 420: #solo_rank_match
-                            others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                            rich = True
+                        solo_match_data[i]["champion"] = matches_info["matches"][i]["champion"]
+                        solo_match_data[i]['gameId'] = matches_info["matches"][i]['gameId']
 
-                            solo_match_data[i]["champion"] = matches_info["matches"][i]["champion"]
-                            solo_match_data[i]['gameId'] = matches_info["matches"][i]['gameId']
+                        match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
+                            solo_match_data[i]['gameId'])
+                        match_info = requests.get(match_url, params=params)
+                        match_info = match_info.json()
 
-                            match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
-                                solo_match_data[i]['gameId'])
-                            match_info = requests.get(match_url, params=params)
-                            match_info = match_info.json()
+                        for k in range(10):  # k = participantId
+                            if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
+                                global participantId
+                                participantId = k
+                                others.remove(k)
 
-                            for k in range(10):  # k = participantId
-                                if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
-                                    global participantId
-                                    participantId = k
-                                    others.remove(k)
+                        for item in others:
+                            if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item]['stats']['goldEarned']:
+                                rich = False
 
-                            for item in others:
-                                if match_info['participants'][participantId]['stats']['goldEarned'] < match_info['participants'][item]['stats']['goldEarned']:
-                                    rich = False
+                        if rich:
+                            solo_match_data[i]['rich'] = 'rich'
 
-                            if rich:
-                                solo_match_data[i]['rich'] = 'rich'
-
-                            if participantId < 5:
-                                # match_data[i]['team'] = 100
-                                if match_info['teams'][0]['win'] == "Win":
-                                    solo_match_data[i]['wl'] = 'win'
-                                else:
-                                    solo_match_data[i]['wl'] = 'lose'
+                        if participantId < 5:
+                            # match_data[i]['team'] = 100
+                            if match_info['teams'][0]['win'] == "Win":
+                                solo_match_data[i]['wl'] = 'win'
                             else:
-                                # match_data[i]['team'] = 200
-                                if match_info['teams'][0]['win'] == "Win":
-                                    solo_match_data[i]['wl'] = 'lose'
-                                else:
-                                    solo_match_data[i]['wl'] = 'win'
+                                solo_match_data[i]['wl'] = 'lose'
+                        else:
+                            # match_data[i]['team'] = 200
+                            if match_info['teams'][0]['win'] == "Win":
+                                solo_match_data[i]['wl'] = 'lose'
+                            else:
+                                solo_match_data[i]['wl'] = 'win'
 
 
 
-                            #
-                            # if match_data[i]['team'] == 100:
-                            #     if match_info['teams'][0]['win'] == "Win":
-                            #         match_data[i]['win'] = 'win'
-                            #     else:
-                            #         match_data[i]['win'] = 'lose'
-                            # else:
-                            #     if match_info['teams'][0]['win'] == "Win":
-                            #         match_data[i]['win'] = 'lose'
-                            #     else:
-                            #         match_data[i]['win'] = 'win'
+                #
+                # if match_data[i]['team'] == 100:
+                #     if match_info['teams'][0]['win'] == "Win":
+                #         match_data[i]['win'] = 'win'
+                #     else:
+                #         match_data[i]['win'] = 'lose'
+                # else:
+                #     if match_info['teams'][0]['win'] == "Win":
+                #         match_data[i]['win'] = 'lose'
+                #     else:
+                #         match_data[i]['win'] = 'win'
 
         return render(request, 'search/results.html',
                       {'summoner_exist': summoner_exist, 'summoners_result': sum_result, 'solo_tier': solo_tier,
