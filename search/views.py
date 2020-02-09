@@ -160,13 +160,23 @@ def switch_champions(x):
         875: "Sett",
         523: "Aphelios",
         350: "Yuumi",
-        246: "Qiyana"
+        246: "Qiyana",
+        145: "Kaisa"
     }.get(x, "New")
 
 
 # for web
 def index(request):
-    return render(request, 'search/index.html', {})
+    rotation_champions = []
+    champion_rotation_url = "https://na1.api.riotgames.com/lol/platform/v3/champion-rotations"
+    res = requests.get(champion_rotation_url)
+
+    if res.status_code == requests.codes.ok:
+        rotation_result = res.json()
+        if rotation_result:
+            for i in range(len(rotation_result["freeChampionIds"])):
+                rotation_champions.append(switch_champions(rotation_result["freeChampionIds"][i]))
+        return render(request, 'search/index.html', {'rotation_champion': rotation_champions})
 
 
 def results(request):
@@ -182,7 +192,7 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]   #50
-        max_match_number = 50
+        max_match_number = 30
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
