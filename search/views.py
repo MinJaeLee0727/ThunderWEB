@@ -260,8 +260,8 @@ def results(request):
                 if matches_info:
                     matchNumber = len(matches_info["matches"])
 
-                    if len(matches_info["matches"]) > 100:
-                        matchNumber = 100
+                    if len(matches_info["matches"]) > 50:
+                        matchNumber = 50
 
                     for i in range(matchNumber):
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
