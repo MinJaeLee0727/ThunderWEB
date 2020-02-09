@@ -110,8 +110,6 @@ def results(request):
                 if matches_info:
 
                     match_number = len(matches_info)
-                    if match_number > 30:
-                        match_number = 30
 
                     for i in range(match_number):
 
