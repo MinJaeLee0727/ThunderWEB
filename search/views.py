@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 # for inter-functions
 def switch_queue(x):
-    return {'900': "uruf", '420': "solo_rank"}.get(x, "None")
+    return {'900': "URUF", '420': "SOLO RANK"}.get(x, "None")
 
 
 # for web
@@ -29,9 +29,8 @@ def results(request):
         solo_tier = {}
         team_tier = {}
         store_summoner_list = []
-        solo_match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
                            {}, {}, {}, {}, {}, {}] #30
-
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
@@ -113,11 +112,12 @@ def results(request):
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         rich = True
 
-                        solo_match_data[i]["champion"] = matches_info["matches"][i]["champion"]
-                        solo_match_data[i]['gameId'] = matches_info["matches"][i]['gameId']
+                        match_data[i]["queue"] = switch_queue(matches_info["matches"][i]["queue"])
+                        match_data[i]["champion"] = matches_info["matches"][i]["champion"]
+                        match_data[i]['gameId'] = matches_info["matches"][i]['gameId']
 
                         match_url = "https://na1.api.riotgames.com/lol/match/v4/matches/" + str(
-                            solo_match_data[i]['gameId'])
+                            match_data[i]['gameId'])
                         match_info = requests.get(match_url, params=params)
                         match_info = match_info.json()
 
@@ -132,20 +132,20 @@ def results(request):
                                 rich = False
 
                         if rich:
-                            solo_match_data[i]['rich'] = 'rich'
+                            match_data[i]['rich'] = 'rich'
 
                         if participantId < 5:
                             # match_data[i]['team'] = 100
                             if match_info['teams'][0]['win'] == "Win":
-                                solo_match_data[i]['wl'] = 'win'
+                                match_data[i]['wl'] = 'win'
                             else:
-                                solo_match_data[i]['wl'] = 'lose'
+                                match_data[i]['wl'] = 'lose'
                         else:
                             # match_data[i]['team'] = 200
                             if match_info['teams'][0]['win'] == "Win":
-                                solo_match_data[i]['wl'] = 'lose'
+                                match_data[i]['wl'] = 'lose'
                             else:
-                                solo_match_data[i]['wl'] = 'win'
+                                match_data[i]['wl'] = 'win'
 
 
 
@@ -163,4 +163,4 @@ def results(request):
 
         return render(request, 'search/results.html',
                       {'summoner_exist': summoner_exist, 'summoners_result': sum_result, 'solo_tier': solo_tier,
-                       'team_tier': team_tier, 'match_data': solo_match_data})
+                       'team_tier': team_tier, 'match_data': match_data})
