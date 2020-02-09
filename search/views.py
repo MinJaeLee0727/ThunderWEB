@@ -326,4 +326,4 @@ def results(request):
 
         return render(request, 'search/results.html',
                       {'summoner_exist': summoner_exist, 'summoners_result': sum_result, 'solo_tier': solo_tier,
-                       'team_tier': team_tier, 'match_data': match_data, 'status': status})
+                       'team_tier': team_tier, 'match_data': match_data})
