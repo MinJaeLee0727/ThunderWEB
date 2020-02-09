@@ -58,7 +58,7 @@
 
     <div class="row" style="margin: 40px; float: none;">
 
-        <img style="display: block; margin: 0px" class="img-thumbnail" src="{% static '/dragontail-10.2.1/10.2.1/img/profileicon/' %}{{summoners_result.profileIconId}}.png">
+        <img style="display: block; margin: 0px" class="img-thumbnail" src="{% static '/dragontail-10.2.1/10.2.1/img/profileicon/' %}{{summoners_result.profileIconId}}.png" width="50%">
         <span style="margin: 20 0 0 20; font-size: 32px;">{{ summoners_result.name }}<br>
                                        <span style="font-size: 20px; ">LV: {{ summoners_result.level }}</span>
                                </span>
@@ -74,10 +74,9 @@
                     <img src="{% static '/images/emblems/'%}{{solo_tier.rankWithTier}}.png"  width="100%">
                 </div>
                 <div>
-                    리그: {{ solo_tier.rank_type }}<br>
-                    티어: {{ solo_tier.tier }} {{ solo_tier.rank }}<br>
-                    포인트: {{ solo_tier.points }}<br>
-                    전적: {{ solo_tier.wins|add:solo_tier.losses}}전 {{ solo_tier.wins }}승 {{ solo_tier.losses }}패<br>
+                    {{ solo_tier.rank_type }} <br>
+                    <span style="color:blue"> {{ solo_tier.tier }} {{ solo_tier.rank }}<br> </span>
+                    <b> {{ solo_tier.points }} LP </b> / {{ solo_tier.wins }}승 {{ solo_tier.losses }}패 <br>
                     승률: {{ solo_tier.winRate }}<br>
                 </div>
             </div>

@@ -109,9 +109,7 @@ def results(request):
 
                 if matches_info:
 
-                    match_number = len(matches_info)
-
-                    for i in range(match_number):
+                    for i in range(len(matches_info)):
 
                         if matches_info["matches"][i]["queue"] == 420: #solo_rank_match
                             others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
