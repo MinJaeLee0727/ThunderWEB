@@ -277,12 +277,12 @@ def results(request):
                         match_info = requests.get(match_url, params=params)
                         match_info = match_info.json()
 
-                        if match_info["status"]:
-                            del match_data[:]
-                            global status
-                            status = match_info
-                            print(match_info)
-                            break
+                        # if match_info["status"][2]:
+                        #     del match_data[:]
+                        #     global status
+                        #     status = match_info
+                        #     print(match_info)
+                        #     break
 
                         for k in range(10):  # k = participantId
                             if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
