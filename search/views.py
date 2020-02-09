@@ -181,6 +181,7 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]   #50
+        max_match_number = 50
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
@@ -227,29 +228,29 @@ def results(request):
                         solo_tier['losses'] = tier_info['losses']
                         solo_tier['winRate'] = "%.2f%%" % ((solo_tier['wins'] / (solo_tier['wins'] + solo_tier['losses'])) * 100)
 
-                if len(tier_info) == 2:  # 자유랭크, 솔로랭크 둘다 전적이 있는경우
+                elif len(tier_info) == 2:  # 자유랭크, 솔로랭크 둘다 전적이 있는경우
                     for item in tier_info:
                         store_summoner_list.append(item)
 
                     solo_tier['rank_type'] = '솔로랭크 5:5'
-                    solo_tier['tier'] = store_summoner_list[0]['tier']
-                    solo_tier['rank'] = store_summoner_list[0]['rank']
-                    solo_tier['rankWithTier'] = store_summoner_list[0]['tier'] + " " + store_summoner_list[0]['rank']
-                    solo_tier['points'] = store_summoner_list[0]['leaguePoints']
-                    solo_tier['wins'] = store_summoner_list[0]['wins']
-                    solo_tier['losses'] = store_summoner_list[0]['losses']
+                    solo_tier['tier'] = store_summoner_list[1]['tier']
+                    solo_tier['rank'] = store_summoner_list[1]['rank']
+                    solo_tier['rankWithTier'] = store_summoner_list[1]['tier'] + " " + store_summoner_list[1]['rank']
+                    solo_tier['points'] = store_summoner_list[1]['leaguePoints']
+                    solo_tier['wins'] = store_summoner_list[1]['wins']
+                    solo_tier['losses'] = store_summoner_list[1]['losses']
                     solo_tier['winRate'] = "%.2f%%" % (
-                            (store_summoner_list[0]['wins'] / (store_summoner_list[0]['wins'] + store_summoner_list[0]['losses'])) * 100)
+                            (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
 
                     team_tier['rank_type'] = '자유랭크 5:5'
-                    team_tier['tier'] = store_summoner_list[1]['tier']
-                    team_tier['rank'] = store_summoner_list[1]['rank']
-                    team_tier['rankWithTier'] = store_summoner_list[1]['tier'] + " " + store_summoner_list[1]['rank']
-                    team_tier['points'] = store_summoner_list[1]['leaguePoints']
-                    team_tier['wins'] = store_summoner_list[1]['wins']
-                    team_tier['losses'] = store_summoner_list[1]['losses']
+                    team_tier['tier'] = store_summoner_list[0]['tier']
+                    team_tier['rank'] = store_summoner_list[0]['rank']
+                    team_tier['rankWithTier'] = store_summoner_list[0]['tier'] + " " + store_summoner_list[0]['rank']
+                    team_tier['points'] = store_summoner_list[0]['leaguePoints']
+                    team_tier['wins'] = store_summoner_list[0]['wins']
+                    team_tier['losses'] = store_summoner_list[0]['losses']
                     team_tier['winRate'] = "%.2f%%" % (
-                            (store_summoner_list[1]['wins'] / (store_summoner_list[1]['wins'] + store_summoner_list[1]['losses'])) * 100)
+                            (store_summoner_list[0]['wins'] / (store_summoner_list[0]['wins'] + store_summoner_list[0]['losses'])) * 100)
 
                 # 소환사 매치 정보
                 matches_url = "https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + summoners_result[
@@ -260,8 +261,8 @@ def results(request):
                 if matches_info:
                     matchNumber = len(matches_info["matches"])
 
-                    if len(matches_info["matches"]) > 50:
-                        matchNumber = 50
+                    if len(matches_info["matches"]) > max_match_number:
+                        matchNumber = max_match_number
 
                     for i in range(matchNumber):
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -275,6 +276,13 @@ def results(request):
                             match_data[i]['gameId'])
                         match_info = requests.get(match_url, params=params)
                         match_info = match_info.json()
+
+                        if match_info["status"]:
+                            del match_data[:]
+                            global status
+                            status = match_info
+                            print(match_info)
+                            break
 
                         for k in range(10):  # k = participantId
                             if summoner_name == match_info['participantIdentities'][k]['player']['summonerName']:
@@ -318,4 +326,4 @@ def results(request):
 
         return render(request, 'search/results.html',
                       {'summoner_exist': summoner_exist, 'summoners_result': sum_result, 'solo_tier': solo_tier,
-                       'team_tier': team_tier, 'match_data': match_data})
+                       'team_tier': team_tier, 'match_data': match_data, 'status': status})

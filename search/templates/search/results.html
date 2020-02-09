@@ -129,6 +129,7 @@
 
     <table class="table" style="margin-top: 5%">
         <thead>
+        {% if status %}
         <tr>
             <th scope="col">Game Type</th>
             <th scope="col">Champion</th>
@@ -150,6 +151,9 @@
             <!--{{candidate.area}}</a></td>-->
         </tr>
         {% endfor %}
+        {% else %}
+        {{status}}
+        {% endif %}
         <tbody>
     </table>
 
