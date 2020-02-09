@@ -159,7 +159,8 @@ def switch_champions(x):
         81:  "Ezreal",
         875: "Sett",
         523: "Aphelios",
-        350: "Yuumi"
+        350: "Yuumi",
+        246: "Qiyana"
     }.get(x, "New")
 
 
@@ -261,7 +262,7 @@ def results(request):
                 if matches_info:
                     matchNumber = len(matches_info["matches"])
 
-                    if len(matches_info["matches"]) > max_match_number:
+                    if matchNumber > max_match_number:
                         matchNumber = max_match_number
 
                     for i in range(matchNumber):
