@@ -158,7 +158,8 @@ def switch_champions(x):
         59:  "Jarvan IV",
         81:  "Ezreal",
         875: "Sett",
-        523: "Aphelios"
+        523: "Aphelios",
+        350: "Yuumi"
     }.get(x, "New")
 
 
@@ -258,8 +259,10 @@ def results(request):
                 matches_info = matches_info.json()
 
                 if matches_info:
-
-                    for i in range(matches_info):
+                    print(matches_info)
+                    print(len(matches_info))
+                    print(range(len(matches_info)))
+                    for i in range(len(matches_info)):
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         rich = True
 
