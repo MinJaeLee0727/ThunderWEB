@@ -80,11 +80,11 @@
                 <div class="col-4">
                     <img src="{% static '/images/emblems/'%}{{solo_tier.rankWithTier}}.png"  width="100%">
                 </div>
-                <div class="TierRankInfo">
-                    <span style="font-size: 11px">{{ solo_tier.rank_type }} </span><br>
-                    <span style="color:blue; font-size: 15px">{{ solo_tier.tier }} {{ solo_tier.rank }}<br> </span>
-                    <span style="font-size: 12px"><b>{{ solo_tier.points }} LP </b> / {{ solo_tier.wins }}승 {{ solo_tier.losses }}패 <br></span>
-                    <span style="font-szie: 12px">승률: {{ solo_tier.winRate }}<br></span>
+                <div class="soloTierRankInfo">
+                    <span class="soloTierRankType" style="font-size: 11px">{{ solo_tier.rank_type }} </span><br>
+                    <span class="soloRankTier" style="color:blue; font-size: 15px">{{ solo_tier.tier }} {{ solo_tier.rank }}<br> </span>
+                    <span class="soloPoint" style="font-size: 12px"><b>{{ solo_tier.points }} LP </b> / {{ solo_tier.wins }}승 {{ solo_tier.losses }}패 <br></span>
+                    <span class="soloWinRate" style="font-szie: 12px">승률: {{ solo_tier.winRate }}<br></span>
                 </div>
             </div>
             {% else %}
@@ -101,12 +101,11 @@
                 <div class="col-4">
                     <img src="{% static '/images/emblems/' %}{{team_tier.rankWithTier}}.png"  width="100%">
                 </div>
-                <div>
-                    리그: {{ team_tier.rank_type }}<br>
-                    티어: {{ team_tier.tier }} {{ team_tier.rank }}<br>
-                    포인트: {{ team_tier.points }}<br>
-                    전적: {{ team_tier.wins|add:team_tier.losses}}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패<br>
-                    승률: {{ team_tier.winRate }}<br>
+                <div class="teamTierRankInfo">
+                    <span class="teamTierRankType" style="font-size: 11px">{{ team_tier.rank_type }} </span><br>
+                    <span class="teamRankTier" style="color:blue; font-size: 15px">{{ team_tier.tier }} {{ team_tier.rank }}<br> </span>
+                    <span class="teamPoint" style="font-size: 12px"><b>{{ team_tier.points }} LP </b> / {{ team_tier.wins }}승 {{ team_tier.losses }}패 <br></span>
+                    <span class="teamWinRate" style="font-szie: 12px">승률: {{ team_tier.winRate }}<br></span>
                 </div>
                 {% else %}
                 <div class="col-4">
