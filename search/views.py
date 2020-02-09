@@ -181,7 +181,9 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-                           {}, {}, {}, {}, {}, {}] #30
+                      {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                      {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                      {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]   #100
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 
@@ -259,10 +261,12 @@ def results(request):
                 matches_info = matches_info.json()
 
                 if matches_info:
-                    print(matches_info)
-                    print(len(matches_info))
-                    print(range(len(matches_info)))
-                    for i in range(len(matches_info)):
+                    matchNumber = len(matches_info["matches"])
+
+                    if len(matches_info["matches"]) > 100:
+                        matchNumber = 100
+
+                    for i in matchNumber:
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         rich = True
 
