@@ -73,11 +73,11 @@
                 <div class="col-4">
                     <img src="{% static '/images/emblems/'%}{{solo_tier.rankWithTier}}.png"  width="100%">
                 </div>
-                <div>
-                    {{ solo_tier.rank_type }} <br>
-                    <span style="color:blue"> {{ solo_tier.tier }} {{ solo_tier.rank }}<br> </span>
-                    <b> {{ solo_tier.points }} LP </b> / {{ solo_tier.wins }}승 {{ solo_tier.losses }}패 <br>
-                    승률: {{ solo_tier.winRate }}<br>
+                <div class="TierRankInfo">
+                    <span style="font-size: 11px">{{ solo_tier.rank_type }} </span><br>
+                    <span style="color:blue; font-size: 15px">{{ solo_tier.tier }} {{ solo_tier.rank }}<br> </span>
+                    <span style="font-size: 12px"><b>{{ solo_tier.points }} LP </b> / {{ solo_tier.wins }}승 {{ solo_tier.losses }}패 <br></span>
+                    <span style="font-szie: 12px">승률: {{ solo_tier.winRate }}<br></span>
                 </div>
             </div>
             {% else %}
@@ -128,7 +128,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for data in solo_match_data %}
+        {% for data in match_data %}
         <tr>
             <td>{{data.champion}}</td>
             <td>{{data.wl}}</td>
