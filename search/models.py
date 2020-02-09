@@ -6,7 +6,7 @@ from . import views
 # users = tier + matches + ...
 
 
-class users(models.Model):
+class user(models.Model):
     area = models.CharField(max_length=3)
     userNumber = models.IntegerField()
     summonerName = models.CharField(max_length=20)
@@ -16,7 +16,7 @@ class users(models.Model):
         return self.summonerName
 
 
-class matches(models.Model):
+class matche(models.Model):
     matches = models.ForeignKey('users', on_delete=models.CASCADE)
     order_matches = models.IntegerField()
     # match_date = models.DateTimeField(default="N/A")
