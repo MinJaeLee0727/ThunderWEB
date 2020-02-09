@@ -266,7 +266,7 @@ def results(request):
                     if len(matches_info["matches"]) > 100:
                         matchNumber = 100
 
-                    for i in matchNumber:
+                    for i in range(matchNumber):
                         others = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         rich = True
 
