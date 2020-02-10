@@ -178,6 +178,7 @@ def index(request):
         if rotation_result:
             for i in range(len(rotation_result["freeChampionIds"])):
                 rotation_champions.append(switch_champions(rotation_result["freeChampionIds"][i]))
+            print(rotation_champions)
         return render(request, 'search/index.html', {'rotation_champion': rotation_champions})
 
 
