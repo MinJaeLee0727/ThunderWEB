@@ -140,10 +140,7 @@
         {% for data in match_data %}
         <tr>
             <td>{{data.queue}}</td>
-            <tr>
-                <td><img src="{% static '/dragontail-10.2.1/10.2.1/img/champion/' %}{{data.champion}}.png" width="15%"></td>
-                <td>{{data.champion}}</td>
-            </tr>
+            <td><img src="{% static '/dragontail-10.2.1/10.2.1/img/champion/' %}{{data.champion}}.png" width="15%"><br>{{data.champion}</td>
             <td>{{data.wl}}</td>
             <td>{{data.rich}}</td>
             <!--<td>{{candidate.introduction}}</td>-->
