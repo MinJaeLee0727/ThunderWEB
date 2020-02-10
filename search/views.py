@@ -161,7 +161,9 @@ def switch_champions(x):
             523: "Aphelios",
             350: "Yuumi",
             246: "Qiyana",
-            145: "Kaisa"
+            145: "Kaisa",
+            518: "Neeko",
+            498: "Xayah"
         }.get(x, "New")
 
 

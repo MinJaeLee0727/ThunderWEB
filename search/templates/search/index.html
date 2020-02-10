@@ -63,11 +63,10 @@
     <div class="row" id="rotationChampionContainer" style="margin-top: 20%, text-align: center">
         <div class="col-xs-12" style="width: 100%; display; inline-block">
             <table border>
+                <div>Champion Rotations</div>
                 {% for data in rotation_champions %}
                 <tr>
                     <td><img src="{% static '/dragontail-10.2.1/10.2.1/img/champion/' %}{{data}}.png"></td>
-                </tr>
-                <tr align="center">
                     <td>{{data}}</td>
                 </tr>
                 {% endfor %}
