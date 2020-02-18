@@ -155,6 +155,7 @@ def switch_champions(x):
             145: "Kaisa",
             518: "Neeko",
             498: "Xayah",
-            555: "Pyke"
+            555: "Pyke",
+            517: "Sylas"
         }.get(x, "New")
 
