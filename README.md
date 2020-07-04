@@ -3,8 +3,8 @@ League of Legends Stats
 
 You can search your League of Legneds game stats and champion rotation.
 
-![Screenshot of Thunder index](README/Screenshot of Thunder index.png)
-![Screenshot of Thunder search](README/Screenshot of Thunder search.png)
+![Screenshot of Thunder index](/README/Screenshot of Thunder index.png)
+![Screenshot of Thunder search](/README/Screenshot of Thunder search.png)
 
 *** 
 ### This web will not be updated anymore.   
