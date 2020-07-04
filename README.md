@@ -9,7 +9,7 @@ You can search your League of Legneds game stats and champion rotation.
 *** 
 ### This project will not be updated anymore.   
 ### As this project was a prototype, I will move on to React ThunderWEB.    
-### However, you can still access to [the website](http://thunderweb.herokuapp.com, "thunder web")      
+### However, you can still access to [the website](http://thunderweb.herokuapp.com)      
 ***
 Programming Language   
 - Python (Django)
