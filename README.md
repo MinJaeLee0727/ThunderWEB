@@ -14,6 +14,7 @@ You can search your League of Legneds game stats and champion rotation.
 Programming Language   
 - Python (Django)
 - HTML
+- CSS
 
 Website Language   
 - Korean
