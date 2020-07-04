@@ -36,7 +36,7 @@ def results(request):
         team_tier = {}
         store_summoner_list = []
         match_data = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]   #50
-        max_match_number = 30
+        max_match_number = 50
 
         api_key = 'RGAPI-b408538f-4a26-4d36-a2bb-8f888adfd9cc'
 

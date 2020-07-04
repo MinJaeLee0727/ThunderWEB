@@ -4,4 +4,4 @@ from .models import matche, user
 # Register your models here.
 
 admin.site.register(user)
-admin.site.register(matche)
+admin.site.register(match)
