@@ -16,6 +16,12 @@ Programming Language
 - HTML
 - CSS
 
+Other servies used in the web
+- Django
+- Whitenoise 
+- League of Legends API (json)
+- etc.
+
 Website Language   
 - Korean
 
