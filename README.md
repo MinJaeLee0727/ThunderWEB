@@ -1,7 +1,7 @@
 # Thunder
 League of Legends Stats 
 
-You can search your League of Legneds game stats and champion rotation.
+You can see weekly champion rotation and search your League of Legneds game history to see whether you won or lose or you were the richest summoner in the game.
 
 ![Screenshot of Thunder index](/README/index.png)
 ![Screenshot of Thunder search](/README/search.png)
